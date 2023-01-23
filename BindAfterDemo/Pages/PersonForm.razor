@@ -1,0 +1,22 @@
+﻿@using BindAfterDemo.Data;
+
+<EditForm Model="Person">
+    <label>First Name</label>
+    <InputText @bind-Value="Person.FirstName" />
+
+    <label>Last Name</label>
+    <InputText @bind-Value="Person.LastName" @bind-Value:after="OnFormComplete" />
+</EditForm>
+
+@code {
+    [Parameter]
+    public Person Person { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback FormComplete { get; set; }
+
+    private async Task OnFormComplete()
+    {
+        await FormComplete.InvokeAsync();
+    }
+}

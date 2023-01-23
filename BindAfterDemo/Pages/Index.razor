@@ -1,0 +1,25 @@
+﻿@page "/"
+@using BindAfterDemo.Data;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<PersonForm Person="Person" FormComplete="FormComplete" />
+
+@if (!string.IsNullOrWhiteSpace(Person.FirstName) && !string.IsNullOrWhiteSpace(Person.LastName))
+{
+    <p>&nbsp;</p>
+    <p>Thanks for completing the form @Person.FirstName @Person.LastName!</p>
+    <p>You completed the form at: @TimeEntered.ToString("dd/MM/yyyy HH:mm:ss")</p>
+}
+
+@code {
+    Person Person { get; set; } = new();
+    DateTime TimeEntered { get; set; }
+
+    private void FormComplete()
+    {
+        TimeEntered = DateTime.Now;
+    }
+}
